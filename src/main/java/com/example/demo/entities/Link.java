@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "links")
 public class Link {
@@ -27,22 +29,23 @@ public class Link {
 	@Column
 	private String link;
 	
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "page_id")
+	private Page page;
 	
 	@Column
 	@Enumerated
 	private LinkType type;
 
-	protected Link() {
+	public Link() {
 	}
 
-	protected Link(UUID id, String name, String link, User user, LinkType type) {
+	protected Link(UUID id, String name, String link, Page page, LinkType type) {
 		this.id = id;
 		this.name = name;
 		this.link = link;
-		this.user = user;
+		this.page = page;
 		this.type = type;
 	}
 
@@ -70,12 +73,12 @@ public class Link {
 		this.link = link;
 	}
 
-	public User getUser() {
-		return user;
+	public Page getPage() {
+		return page;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setPage(Page page) {
+		this.page = page;
 	}
 
 	public LinkType getType() {
@@ -88,7 +91,7 @@ public class Link {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, link, name, type, user);
+		return Objects.hash(id, link, name, type, page);
 	}
 
 	@Override
@@ -101,12 +104,12 @@ public class Link {
 			return false;
 		Link other = (Link) obj;
 		return Objects.equals(id, other.id) && Objects.equals(link, other.link) && Objects.equals(name, other.name)
-				&& type == other.type && Objects.equals(user, other.user);
+				&& type == other.type && Objects.equals(page, other.page);
 	}
 
 	@Override
 	public String toString() {
-		return "Link [id=" + id + ", name=" + name + ", link=" + link + ", user=" + user + ", type=" + type + "]";
+		return "Link [id=" + id + ", name=" + name + ", link=" + link + ", user=" + page + ", type=" + type + "]";
 	}
 	
 	
