@@ -30,7 +30,7 @@ public class User {
 	private List<Page> pages;
 	
 
-	protected User() {
+	public User() {
 	}
 	
 
