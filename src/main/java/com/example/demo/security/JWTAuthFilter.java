@@ -26,7 +26,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 	private final String HEADER = "Authorization";
 	private final String PREFIX = "Biz";
 	
-	@Value("${JWT_TOKEN}")
+	@Value("${jwt.secret}")
 	private String SECRET;
 	
 	@Override

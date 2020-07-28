@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -29,6 +30,11 @@ public class BizziApplication {
 			http.csrf().disable()
 				.addFilterAfter(new JWTAuthFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
+				.antMatchers(HttpMethod.GET, "/api/page").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/page/{id}").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/page/{id}/links").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/login").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/signup/").permitAll()
 				.anyRequest().authenticated();
 		}
 		

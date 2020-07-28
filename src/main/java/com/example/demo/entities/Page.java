@@ -50,6 +50,20 @@ public class Page {
 	
 	public Page() {
 	}
+	
+	
+
+	protected Page(UUID id, String title, String about, String headerImg, String userImg, User user, List<Link> links) {
+		this.id = id;
+		this.title = title;
+		this.about = about;
+		this.headerImg = headerImg;
+		this.userImg = userImg;
+		this.user = user;
+		this.links = links;
+	}
+
+
 
 	public UUID getId() {
 		return id;
@@ -91,6 +105,14 @@ public class Page {
 		this.userImg = userImg;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public List<Link> getLinks() {
 		return links;
 	}
@@ -99,10 +121,14 @@ public class Page {
 		this.links = links;
 	}
 
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(about, headerImg, id, links, title, userImg);
+		return Objects.hash(about, headerImg, id, links, title, user, userImg);
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -115,14 +141,19 @@ public class Page {
 		Page other = (Page) obj;
 		return Objects.equals(about, other.about) && Objects.equals(headerImg, other.headerImg)
 				&& Objects.equals(id, other.id) && Objects.equals(links, other.links)
-				&& Objects.equals(title, other.title) && Objects.equals(userImg, other.userImg);
+				&& Objects.equals(title, other.title) && Objects.equals(user, other.user)
+				&& Objects.equals(userImg, other.userImg);
 	}
+
+
 
 	@Override
 	public String toString() {
 		return "Page [id=" + id + ", title=" + title + ", about=" + about + ", headerImg=" + headerImg + ", userImg="
-				+ userImg + ", links=" + links + "]";
+				+ userImg + ", user=" + user + ", links=" + links + "]";
 	}
+
+	
 
 	
 	

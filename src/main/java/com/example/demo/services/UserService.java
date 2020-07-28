@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,35 +27,47 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	@Value("${JWT_TOKEN}")
+	@Value("${jwt.secret}")
 	private String SECRET;
 	
-	public String signup(String email, String password) {
+	public HashMap<String, Object> signup(String email, String password) {
 		User user = new User();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		user.setEmail(email);
 		user.setPassword(passwordEncoder.encode(password));
 		
 		if(userRepository.save(user) != null) {
 			String token = getJWTToken(email);
+			map.put("token", token);
+			map.put("user_id", user.getId());
 			
-			return token;
+			return map;
+			
+			
 		}else {
-			return "Email Error";
+			map.put("Error", "Error submitting user");
+			return map;
 		}
 	}
 	
-	public String login(String email, String password) {
+	public HashMap<String, Object> login(String email, String password) {
 		User user = userRepository.findByEmail(email);
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		
 		if(user == null) {
-			return "Login Error";
+			map.put("Error", "Login Error");
+			return map;
 		}else {
 			if(passwordEncoder.matches(password, user.getPassword())) {
 				String token = getJWTToken(email);
-				return token;
+				map.put("token", token);
+				map.put("user_id", user.getId());
+				
+				return map;
 			}else {
-				return "Login Error";
+				map.put("Error", "Login Error");
+				return map;
 			}
 		}
 	}
