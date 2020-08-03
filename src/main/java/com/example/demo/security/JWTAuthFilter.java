@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,14 +22,27 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
+import static com.example.demo.security.SecurityConstants.SECRET;
+
 public class JWTAuthFilter extends OncePerRequestFilter {
+	
+//	@Value("${jwt.secret}")
+//	private String secret;
 	
 	private final String HEADER = "Authorization";
 	private final String PREFIX = "Biz";
-	
-	@Value("${jwt.secret}")
-	private String SECRET;
-	
+//	private String SECRET;
+//	
+//	@Value("${jwt.secret}") 
+//	public void setSecret(String secret) {
+//		this.SECRET = secret;
+//	}
+
+//	@Autowired
+//	public JWTAuthFilter(@Value("${jwt.secret}") final String sECRET) {
+//		SECRET = sECRET;
+//	}
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws ServletException, IOException {
 		try {

@@ -30,10 +30,10 @@ public class BizziApplication {
 			http.csrf().disable()
 				.addFilterAfter(new JWTAuthFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/api/page").permitAll()
-				.antMatchers(HttpMethod.GET, "/api/page/{id}").permitAll()
-				.antMatchers(HttpMethod.GET, "/api/page/{id}/links").permitAll()
-				.antMatchers(HttpMethod.POST, "/api/login").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/page/").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/page/{id}/").permitAll()
+				.antMatchers(HttpMethod.GET, "/api/page/{id}/links/").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/login/").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/signup/").permitAll()
 				.anyRequest().authenticated();
 		}
