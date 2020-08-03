@@ -32,5 +32,6 @@ build/
 
 ### Config Files ###
 src/main/resources/application.properties
+src/main/java/com/example/demo/security/SecurityConstants.java
 
 *.properties
