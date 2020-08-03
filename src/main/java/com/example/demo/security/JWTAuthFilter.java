@@ -26,22 +26,9 @@ import static com.example.demo.security.SecurityConstants.SECRET;
 
 public class JWTAuthFilter extends OncePerRequestFilter {
 	
-//	@Value("${jwt.secret}")
-//	private String secret;
-	
 	private final String HEADER = "Authorization";
 	private final String PREFIX = "Biz";
-//	private String SECRET;
-//	
-//	@Value("${jwt.secret}") 
-//	public void setSecret(String secret) {
-//		this.SECRET = secret;
-//	}
 
-//	@Autowired
-//	public JWTAuthFilter(@Value("${jwt.secret}") final String sECRET) {
-//		SECRET = sECRET;
-//	}
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws ServletException, IOException {
