@@ -20,7 +20,7 @@ public class PageService {
 	@Autowired 
 	UserRepository userRepository;
 	
-	public Page createPage(UUID userId, String title, String about, String headerImg, String userImg) {
+	public UUID createPage(UUID userId, String title, String about, String headerImg, String userImg) {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new NoSuchElementException("User not found"));
 		
@@ -32,7 +32,8 @@ public class PageService {
 		newPage.setUserImg(userImg);
 		newPage.setUser(user);
 		
-		return pageRepository.save(newPage);
+		Page page = pageRepository.save(newPage);
+		return page.getId();
 	}
 	
 	public Page getPage(UUID id) {

@@ -61,14 +61,15 @@ public class MainController {
 	//Method to create new user page
 	@PostMapping("page")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Page createPage(@RequestParam("user_id") UUID userId, @RequestParam("title") String title, @RequestParam("about") String about, @RequestParam("headerImg") String headerImg, @RequestParam("userImg") String userImg) {
-		Page newPage = pageService.createPage(userId, title, about, headerImg, userImg);
-		return newPage; 
+	public Object createPage(@RequestBody HashMap<String, String> page) {
+		UUID userId = UUID.fromString(page.get("user_id"));
+		UUID pageId = pageService.createPage(userId, page.get("title"), page.get("about"), page.get("headerImg"), page.get("userImg"));
+		return pageId; 
 	}
 	//method to retreive page from database using page id
 	@GetMapping(value = "page/{id}")
-	public Page getUser(@PathVariable UUID id) {
-		Page page = pageService.getPage(id);
+	public Object getUser(@PathVariable UUID id) {
+		Object page = pageService.getPage(id);
 		
 		return page;
 	}
@@ -82,8 +83,8 @@ public class MainController {
 	//Method used to create new link using user id.
 	@PostMapping("link")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Link createLink(@RequestParam("user_id") UUID userId, @RequestParam("name") String name, @RequestParam("type") LinkType type, @RequestParam("link") String link) {
-		Link newLink = linkService.createLink(userId, name, type, link);
+	public Link createLink(@RequestParam("page_id") UUID pageId, @RequestParam("name") String name, @RequestParam("type") LinkType type, @RequestParam("link") String link) {
+		Link newLink = linkService.createLink(pageId, name, type, link);
 		
 		return newLink;
 	}

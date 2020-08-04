@@ -23,8 +23,8 @@ public class LinkService {
 	@Autowired
 	private PageRepository pageRepository;
 	
-	public Link createLink(UUID userId, String name, LinkType type, String link) {
-		Page page = pageRepository.findById(userId)
+	public Link createLink(UUID pageId, String name, LinkType type, String link) {
+		Page page = pageRepository.findById(pageId)
 		.orElseThrow(() -> new NoSuchElementException("User not found"));
 		
 		Link newLink = new Link();
