@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.entities.Link;
 import com.example.demo.entities.LinkType;
@@ -26,6 +28,7 @@ import com.example.demo.entities.Page;
 import com.example.demo.entities.User;
 import com.example.demo.repo.LinkRepository;
 import com.example.demo.repo.PageRepository;
+import com.example.demo.services.AmazonBucketService;
 import com.example.demo.services.LinkService;
 import com.example.demo.services.PageService;
 import com.example.demo.services.UserService;
@@ -56,6 +59,9 @@ public class MainController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private AmazonBucketService amazonBucketService;
 	
 	
 	//Method to create new user page
@@ -114,6 +120,12 @@ public class MainController {
 		HashMap<String, Object> token = userService.signup(user.getEmail(), user.getPassword());
 		
 		return token;
+	}
+	
+	//method to upload images to bucket
+	@PostMapping("upload")
+	public void uploadFile(@RequestPart(value = "file") MultipartFile file) {
+		this.amazonBucketService.uploadFile(file);
 	}
 	
 

@@ -35,6 +35,7 @@ public class BizziApplication {
 				.antMatchers(HttpMethod.GET, "/api/page/{id}/links/").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/login/").permitAll()
 				.antMatchers(HttpMethod.POST, "/api/signup/").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/upload/").permitAll()
 				.anyRequest().authenticated();
 		}
 		
