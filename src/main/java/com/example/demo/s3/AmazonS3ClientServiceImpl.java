@@ -37,8 +37,9 @@ public class AmazonS3ClientServiceImpl implements AmazonS3ClientService{
 	}
 	
 	@Async
-	public void uploadFileToS3Bucket(MultipartFile multipartFile, boolean enablePublicReadAccess) {
+	public String uploadFileToS3Bucket(MultipartFile multipartFile, boolean enablePublicReadAccess) {
 		String fileName = UUID.randomUUID().toString() + ".jpg";
+		String res = "https://elasticbeanstalk-us-east-2-997409331678.s3.us-east-2.amazonaws.com/" + fileName;
 		
 		try {
 			//Temporarily creating file in server
@@ -56,9 +57,14 @@ public class AmazonS3ClientServiceImpl implements AmazonS3ClientService{
 			this.amazonS3.putObject(putObjectRequest);
 			//removing file from server
 			file.delete();
+			
+			
+			
+			
 		} catch (IOException | AmazonServiceException ex) {
 			logger.error("error [" + ex.getMessage() + "] occurred while uploading [" + fileName + "] ");
 		}
+		return res;
 		
 	}
 

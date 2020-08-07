@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -60,8 +61,6 @@ public class MainController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private AmazonBucketService amazonBucketService;
 	
 	
 	//Method to create new user page
@@ -123,9 +122,18 @@ public class MainController {
 	}
 	
 	//method to upload images to bucket
-	@PostMapping("upload")
-	public void uploadFile(@RequestPart(value = "file") MultipartFile file) {
-		this.amazonBucketService.uploadFile(file);
+	@PostMapping(value = "page/{id}/portrait")
+	public Object uploadPortrait(@PathVariable UUID id, @RequestPart(value = "file") MultipartFile file) {
+		String link = pageService.updatePagePort(id, file);
+		
+		return link;
+	}
+	
+	@PostMapping(value = "page/{id}/header")
+	public Object uploadHeader(@PathVariable UUID id, @RequestPart(value = "file") MultipartFile file) {
+		String link = pageService.updatePageHead(id, file);
+		
+		return link;
 	}
 	
 

@@ -34,10 +34,10 @@ public class Page {
 	private String about;
 	
 	@Column
-	private String headerImg;
+	private String headerImg = "https://parksadventure.com/wp-content/uploads/2017/10/header-image-1-2.png";
 	
 	@Column
-	private String userImg;
+	private String userImg = "https://randomuser.me/api/portraits/men/1.jpg";
 	
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -16,10 +16,10 @@ public class AmazonBucketService {
 	private AmazonS3ClientService amazonS3ClientService;
 	
 	public Map<String, String> uploadFile(MultipartFile file){
-		this.amazonS3ClientService.uploadFileToS3Bucket(file, true);
+		String link = this.amazonS3ClientService.uploadFileToS3Bucket(file, true);
 		
 		Map<String, String> response = new HashMap<String, String>();
-		response.put("message", "file [" + file.getOriginalFilename() + "] uploaded.");
+		response.put("link", link);
 		
 		return response;
 	}
